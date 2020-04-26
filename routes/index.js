@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var datasetController = require('../controllers/datasetController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', datasetController.index);
 
 module.exports = router;
