@@ -11,5 +11,20 @@
 <p>Fields: <%= fields %></p>
 <p>Extent: <%= extent %></p>
 <p>SRS: <%= srs %></p>
+<h2>Features table</h2>
+<% if (features) { %>
+    <table>
+        <% features.forEach(function (feature, i) {
+        if (i < 300){ %>
+            <tr>
+                <td><%= i %></td>
+                <td><%= feature.getGeometry().centroid().x + ', ' + feature.getGeometry().centroid().y %></td>
+                <td><%= feature.fields.get('osm_way_id') %></td>
+                <td><%= feature.fields.get('osm_id') %></td>
+            </tr>
+        <% }
+        }) %>
+    </table>
+<% } %>
 </body>
 </html>
