@@ -2,7 +2,7 @@ var csv = require('csv-parser');
 var fs = require('fs');
 var results = [];
 
-fs.createReadStream('datasets/export-reestrmkd-34-20200401.csv')
+fs.createReadStream('public/datasets/export-reestrmkd-34-20200401.csv')
 	.pipe(csv({ separator: ';' }))
 	.on("data", (data) => results.push(data));
 
