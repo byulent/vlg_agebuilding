@@ -1,7 +1,9 @@
 var gdal = require('gdal');
 
-var dataset = gdal.open('datasets/volgograd_buildings.geojson');
+var dataset = gdal.open('/datasets/volgograd_topo.json', 'w');
 var layer = dataset.layers.get(0);
+layer.fields.add(new gdal.FieldDefn('built_year', gdal.OFTInteger));
+layer.flush();
 
 exports.index = function (req, res, next) {
 	res.render('index', {
