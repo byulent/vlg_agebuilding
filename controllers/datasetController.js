@@ -1,6 +1,6 @@
 var gdal = require('gdal');
 
-var dataset = gdal.open('datasets/volgograd_buildings.shp', 'r', 'ESRI Shapefile');
+var dataset = gdal.open('datasets/volgograd_buildings.geojson');
 var layer = dataset.layers.get(0);
 
 exports.index = function (req, res, next) {

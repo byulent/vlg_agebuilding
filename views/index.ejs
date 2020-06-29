@@ -14,13 +14,21 @@
 <h2>Features table</h2>
 <% if (features) { %>
     <table>
+        <tr>
+            <th>#</th>
+            <th>lon, lat</th>
+            <th>osm_way_id</th>
+            <th>osm_id</th>
+            <th>other_tags</th>
+        </tr>
         <% features.forEach(function (feature, i) {
         if (i < 300){ %>
             <tr>
                 <td><%= i %></td>
-                <td><%= feature.getGeometry().centroid().x + ', ' + feature.getGeometry().centroid().y %></td>
+                <td><%= feature.getGeometry().centroid().y + ', ' + feature.getGeometry().centroid().x %></td>
                 <td><%= feature.fields.get('osm_way_id') %></td>
                 <td><%= feature.fields.get('osm_id') %></td>
+                <td><%= feature.fields.get('other_tags') %></td>
             </tr>
         <% }
         }) %>
