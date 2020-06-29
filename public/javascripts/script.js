@@ -24,7 +24,7 @@ window.onload = function () {
 
 	function loadData() {
 		queue()
-			.defer(d3.json, "http://localhost:3000/datasets/volgograd_topo.json")  // карта в topoJSON-формате
+			.defer(d3.json, "https://volgograd-age-building-map.herokuapp.com/datasets/volgograd_topo.json")  // карта в topoJSON-формате
 			.await(processData);  // обработка загруженных данных
 	}
 
