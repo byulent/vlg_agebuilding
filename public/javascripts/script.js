@@ -30,7 +30,7 @@ window.onload = function () {
 				new ol.layer.VectorTile({
 					source: new ol.source.VectorTile({
 						format: new ol.format.GeoJSON(),
-						url: '//volgograd-age-building-map.herokuapp.com/tiles/{z}/{x}/{y}.json',
+						url: '//localhost:3000/tiles/{z}/{x}/{y}.json',
 						tileSize: 256
 					}),
 					style: (feature) => {
