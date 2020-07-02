@@ -4,7 +4,7 @@ var fs = require('fs');
 var Tiles = require('../lib/tiles');
 
 router.get('/:z/:x/:y.json', (req, res, next) => {
-	var dstPath = 'tiles/';
+	var dstPath = './tiles/';
 	let z = req.params.z,
 		x = req.params.x,
 		y = req.params.y;
