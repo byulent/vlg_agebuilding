@@ -1,55 +1,66 @@
 window.onload = function () {
-	var width, height, svg, path;
+	let width, height, map;
 
 	function init() {
 		setMap();
 	}
 
 	function setMap() {
+		let today = new Date();
+		let colors = [
+			{year: 1917, color: 'd73027'},
+			{year: 1954, color: 'fc8d59'},
+			{year: 1970, color: 'fee08b'},
+			{year: 1991, color: 'd9ef8b'},
+			{year: 2007, color: '91cf60'},
+			{year: today.getFullYear(), color: '1a9850'}
+		]
+		map = document.getElementById('map');
+		resizeMap();
+		window.onresize = resizeMap;
+
+		let olMap = new ol.Map({
+			target: 'map',
+			layers: [
+				new ol.layer.Tile({
+					source: new ol.source.OSM({
+						url: 'https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
+					})
+				}),
+				new ol.layer.VectorTile({
+					source: new ol.source.VectorTile({
+						format: new ol.format.GeoJSON(),
+						url: '//localhost:3000/tiles/{z}/{x}/{y}.json',
+						tileSize: 256
+					}),
+					style: (feature) => {
+						let builtYear = feature.getProperties().built_year, color;
+						if (builtYear == null) color = 'cccccc';
+						else {
+							let colorObj = colors.find(value => value.year >= builtYear);
+							color = colorObj.color;
+						}
+						return new ol.style.Style({
+							fill: new ol.style.Fill({color: '#' + color})
+						});
+					}
+				})
+			],
+			view: new ol.View({
+				center: ol.proj.fromLonLat([44.5288, 48.6780]),
+				zoom: 16,
+				minZoom: 14,
+				maxZoom: 18,
+				rotation: Math.PI / 4
+			})
+		});
+	}
+
+	function resizeMap() {
 		width = window.innerWidth, height = window.innerHeight;
 
-		svg = d3.select('#map').append('svg')
-			.attr('width', width)
-			.attr('height', height);
-
-		var mercator = d3.geoMercator()
-			.scale(500000)
-			.angle(-45)
-			.center([44.516948, 48.707067]);
-
-		path = d3.geoPath().projection(mercator);
-
-		loadData();
-	}
-
-	function loadData() {
-		queue()
-			.defer(d3.json, "https://volgograd-age-building-map.herokuapp.com/datasets/volgograd_topo.json")  // карта в topoJSON-формате
-			.await(processData);  // обработка загруженных данных
-	}
-
-	function processData(error, buildingsMap) {
-		if (error) return console.error(error);
-		var buildings = topojson.feature(buildingsMap, buildingsMap.objects.buildings);
-
-		drawMap(buildings);
-	}
-
-	function drawMap(buildings) {
-
-		svg.append("g")
-			.selectAll("path")
-			.data(buildings.features)
-			.enter().append("path")
-			.attr("d", path)
-			.style('fill', 'black');
-
-		var zoom = d3.behavior.zoom()
-			.on("zoom",function() {
-				svg.select('g').attr("transform","translate("+d3.event.translate.join(",")+")scale("+d3.event.scale+")")
-			});
-
-		svg.call(zoom)
+		map.style.width = width + 'px';
+		map.style.height = height + 'px';
 	}
 
 	init();
