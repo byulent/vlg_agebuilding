@@ -40,7 +40,7 @@ window.onload = function () {
 					'© <a href="https://www.reformagkh.ru/">Реформа ЖКХ</a>'
 				],
 				format: new ol.format.GeoJSON(),
-				url: 'http:://vlg-agebuilding.ru/tiles/{z}/{x}/{y}.json',
+				url: 'http://vlg-agebuilding.ru/tiles/{z}/{x}/{y}.json',
 				tileSize: 256
 			}),
 			style: (feature) => {
