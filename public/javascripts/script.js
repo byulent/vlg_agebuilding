@@ -40,7 +40,7 @@ window.onload = function () {
 					'© <a href="https://www.reformagkh.ru/">Реформа ЖКХ</a>'
 				],
 				format: new ol.format.GeoJSON(),
-				url: 'http://vlg-agebuilding.ru/tiles/{z}/{x}/{y}.json',
+				url: 'https://vlg-agebuilding.ru/tiles/{z}/{x}/{y}.json',
 				tileSize: 256
 			}),
 			style: (feature) => {
@@ -60,7 +60,7 @@ window.onload = function () {
 			layers: [
 				new ol.layer.Tile({
 					source: new ol.source.OSM({
-						url: 'http://{a-c}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+						url: 'https://{a-c}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
 					})
 				}),
 				buildings
